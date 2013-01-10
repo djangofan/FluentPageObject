@@ -131,32 +131,33 @@ public class GoogleSearchPage extends SlowLoadableComponent<GoogleSearchPage> {
             return this;
         }
 		
-		public GSPFluentInterface clickSearchField() {
-			gsp.searchField.click();
-			return this;
-		}
+        public GSPFluentInterface clickSearchField() {
+            gsp.searchField.click();
+            return this;
+        }
 		
-		public GSPFluentInterface clickSearchButton() {
-			gsp.searchButton.click();
-			return this;
-		}
+        public GSPFluentInterface clickSearchButton() {
+            gsp.searchButton.click();
+            return this;
+        }
 		
-		public GSPFluentInterface waitForTime( int units, int ms ) {
-			waitTimer( units, ms );
-			return this;
-		}
+        public GSPFluentInterface waitForTime( int units, int ms ) {
+            waitTimer( units, ms );
+            return this;
+        }
 		
-		public GSPFluentInterface selectItem( String ele ) {
-			System.out.println("Selecting item in list using fluent API.");
-			selectInGoogleDropdown( ele );
-			return this;
-		}		
-		public GSPFluentInterface clickLogo( String id ) {
-			System.out.println("Click Google logo using fluent API.");
-			clickElementWithJSE( id );
-			return this;
-		}
+        public GSPFluentInterface selectItem( String ele ) {
+            System.out.println("Selecting item in list using fluent API.");
+            selectInGoogleDropdown( ele );
+            return this;
+        }		
+        
+        public GSPFluentInterface clickLogo( String id ) {
+            System.out.println("Click Google logo using fluent API.");
+            clickElementWithJSE( id );
+            return this;
+        }
 
-	}	
+    }	
     
 }
