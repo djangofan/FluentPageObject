@@ -30,8 +30,8 @@ public class GoogleTest {
 	public void testFluentPageObject() {    	
 		// inspired by http://randypatterson.com/2007/09/how-to-design-a-fluent-interface/
 		driver.get("http://www.google.com");
-		GoogleSearchPage gs = new GoogleSearchPage();
-		gs.withFluent()
+		GoogleSearchPage gsp = new GoogleSearchPage();
+		gsp.withFluent()
 		    .clickSearchField()
 		    .setSearchString("iphone app")
 		    .waitForTime(3, 1000)
