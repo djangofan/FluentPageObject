@@ -40,26 +40,26 @@ public class UtilityClass {
 	}
 	
 	public static void initializeBrowser( String type ) {
-		if ( type.equalsIgnoreCase( "firefox" ) ) {
-			driver = new FirefoxDriver();
-		} else if ( type.equalsIgnoreCase( "ie" ) ) {
-			driver = new InternetExplorerDriver();
-		}
-        driver.manage().timeouts().implicitlyWait( 10000, TimeUnit.MILLISECONDS );
-        driver.manage().window().setPosition(new Point(200, 10));
-        driver.manage().window().setSize(new Dimension(1200, 800));
+            if ( type.equalsIgnoreCase( "firefox" ) ) {
+                driver = new FirefoxDriver();
+            } else if ( type.equalsIgnoreCase( "ie" ) ) {
+                driver = new InternetExplorerDriver();
+            }
+            driver.manage().timeouts().implicitlyWait( 10000, TimeUnit.MILLISECONDS );
+            driver.manage().window().setPosition(new Point(200, 10));
+            driver.manage().window().setSize(new Dimension(1200, 800));
 	}
 	
 	public static ExpectedCondition<WebElement> visibilityOfElementLocated(final By locator) {
-		return new ExpectedCondition<WebElement>() {
-			public WebElement apply(WebDriver driver) {
-				WebElement toReturn = driver.findElement(locator);
-				if (toReturn.isDisplayed()) {
-					return toReturn;
-				}
-				return null;
-			}
-		};
+            return new ExpectedCondition<WebElement>() {
+                public WebElement apply(WebDriver driver) {
+                    WebElement toReturn = driver.findElement(locator);
+                    if (toReturn.isDisplayed()) {
+                        return toReturn;
+                    }
+                    return null;
+                }
+            };
 	}
 
 	public static void waitForPageToLoad() {
