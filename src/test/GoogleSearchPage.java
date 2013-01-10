@@ -27,7 +27,7 @@ public class GoogleSearchPage extends SlowLoadableComponent<GoogleSearchPage> {
     public GoogleSearchPage() {
         super( new SystemClock(), timeOutInSeconds);
         gspfi = new GSPFluentInterface( this );
-	System.out.println("Loaded Google Search Page");
+	System.out.println("Loading Google Search Page");
 	this.get(); //calls load and isLoaded
 	PageFactory.initElements(driver, this); 
     }
