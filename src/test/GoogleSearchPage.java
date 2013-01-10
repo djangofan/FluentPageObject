@@ -114,6 +114,7 @@ public class GoogleSearchPage extends SlowLoadableComponent<GoogleSearchPage> {
 		}
 		WebElement targetItem = allSuggestions.get( matchedPosition );
 		targetItem.click();
+		waitTimer(1, 500);
 	}
 	
 	/**
@@ -149,11 +150,16 @@ public class GoogleSearchPage extends SlowLoadableComponent<GoogleSearchPage> {
 			return this;
 		}
 		
-		public GSPFluentInterface selectIt( String ele ) {
+		public GSPFluentInterface selectItem( String ele ) {
 			System.out.println("Selecting item in list using fluent API.");
-			clickElementWithJSE( ele );
+			selectInGoogleDropdown( ele );
 			return this;
-		}	
+		}		
+		public GSPFluentInterface clickLogo( String id ) {
+			System.out.println("Click Google logo using fluent API.");
+			clickElementWithJSE( id );
+			return this;
+		}
 
 	}	
     
