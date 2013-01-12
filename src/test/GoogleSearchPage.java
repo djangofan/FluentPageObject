@@ -2,8 +2,11 @@ package test;
 
 import java.util.List;
 
+import org.junit.Assert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,52 +21,45 @@ import static test.UtilityClass.*;
 
 public class GoogleSearchPage extends SlowLoadableComponent<GoogleSearchPage> {
 	
-    private static int timeOutInSeconds = 3;
+    private static int timeOutInSeconds = 30;
     private GSPFluentInterface gspfi;
+    private Boolean isPresent = false;
 
     @FindBy(id = "gbqfq") private WebElement searchField;
     @FindBy(id = "gbqfb") private WebElement searchButton;
 
     public GoogleSearchPage() {
         super( new SystemClock(), timeOutInSeconds);
+        System.out.println("Loading GoogleSearchPage constructor...");
         gspfi = new GSPFluentInterface( this );
-	System.out.println("Loading Google Search Page");
-	this.get(); //calls load and isLoaded
-	PageFactory.initElements(driver, this); 
+        this.get(); // calls load() until isLoaded() succeeds
+        PageFactory.initElements(driver, this); 
     }
 	
     public GSPFluentInterface withFluent() {
 	System.out.println("Returning fluent page object.");
         return gspfi; 
     }
+    
+    public boolean isSearchFieldVisible() {
+		isPresent = driver.findElements( By.id("gbqfq") ).size() == 1;					
+    	return isPresent;
+    }
 	
     @Override
     protected void isLoaded() throws Error {
-        System.out.println("Calling GoogleSearchPage.isLoaded...");
-        final WebElement coreField = (new WebDriverWait(driver, 10))
-            .until(new ExpectedCondition<WebElement>(){
-                public WebElement apply(WebDriver d) {
-                    return d.findElement( By.id("gbqfq") );
-                }});
-        if ( coreField.isDisplayed() ) {
-            System.out.println("Google search page is loaded.\nWill initialize page object.");
-        } else {
-            System.out.println("Google search page is not yet loaded." );
-        } 
+    	// this method must contain an Assert on visibility of an element
+    	// in order to trigger another call of load() if element is not found
+    	System.out.println("Calling GoogleSearchPage.isLoaded()...");
+        Assert.assertTrue("Google search page is not yet loaded.", isSearchFieldVisible() );
     }
 	
     @Override
     protected void load() {
-        System.out.println("Calling GoogleSearchPage.load...");
-        Wait<WebDriver> wait = new WebDriverWait(driver, 30); 
-        if ( driver.findElement( By.id("//div[@id='navBar']//div[1]")).getAttribute("onclick") == null ) {			
-            WebElement defnav = wait.until( visibilityOfElementLocated( By.id("gbqfq") ) );
-            defnav.click();
-            WebElement adnav = wait.until( visibilityOfElementLocated( By.id("gbqfq") ) );
-            adnav.click();			
-        } else {
-            WebElement adnav = wait.until( visibilityOfElementLocated( By.id("gbqfq") ) );
-            adnav.click();
+        System.out.println("Calling GoogleSearchPage.load()...");
+        if ( isPresent ) {
+            Wait<WebDriver> wait = new WebDriverWait( driver, 3 );        
+            wait.until( visibilityOfElementLocated( By.id("gbqfq") ) ).click();
         }
     }
 	
