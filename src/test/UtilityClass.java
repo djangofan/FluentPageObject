@@ -16,60 +16,55 @@ import org.openqa.selenium.Keys;
 public class UtilityClass {
 
 	public static WebDriver driver;
-	private static JavascriptExecutor js;
-	private static String pageLoadStatus = null;
-	
+
 	public static void clearAndSetValue(WebElement field, String text) { 
 		field.clear(); 
 		field.sendKeys(Keys.chord(Keys.CONTROL, "a"), text); 
 	}
-	
+
 	public static void clearAndType(WebElement field, String text) { 
 		field.clear(); 
 		field.sendKeys(text); 
 	}
 
+	/**
+	 * Method: clickElementWithJSE
+	 * Create the object of JavaScript Executor and execute click command
+	 *  through Javascript method.
+	 *
+	 * @param id    The id of a web element in a menu.
+	 * @return void
+	 * @throws null
+	 */
 	public static void clickElementWithJSE( String id ) {
-		//Create the object of JavaScript Executor 
-		//click command through Javascript
+
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		WebElement element= driver.findElement( By.id( id ) );
-		//Use any locator type using to identify the element
 		js.executeScript( "arguments[0].click();", element );
 		js = null;
 	}
-	
+
 	public static void initializeBrowser( String type ) {
-            if ( type.equalsIgnoreCase( "firefox" ) ) {
-                driver = new FirefoxDriver();
-            } else if ( type.equalsIgnoreCase( "ie" ) ) {
-                driver = new InternetExplorerDriver();
-            }
-            driver.manage().timeouts().implicitlyWait( 10000, TimeUnit.MILLISECONDS );
-            driver.manage().window().setPosition(new Point(200, 10));
-            driver.manage().window().setSize(new Dimension(1200, 800));
-	}
-	
-	public static ExpectedCondition<WebElement> visibilityOfElementLocated(final By locator) {
-            return new ExpectedCondition<WebElement>() {
-                public WebElement apply(WebDriver driver) {
-                    WebElement toReturn = driver.findElement(locator);
-                    if (toReturn.isDisplayed()) {
-                        return toReturn;
-                    }
-                    return null;
-                }
-            };
+		if ( type.equalsIgnoreCase( "firefox" ) ) {
+			driver = new FirefoxDriver();
+		} else if ( type.equalsIgnoreCase( "ie" ) ) {
+			driver = new InternetExplorerDriver();
+		}
+		driver.manage().timeouts().implicitlyWait( 10000, TimeUnit.MILLISECONDS );
+		driver.manage().window().setPosition(new Point(200, 10));
+		driver.manage().window().setSize(new Dimension(1200, 800));
 	}
 
-	public static void waitForPageToLoad() {
-		System.out.println("Waiting for page to load...");
-		do {
-			js = (JavascriptExecutor) driver;
-			pageLoadStatus = (String)js.executeScript("return document.readyState");
-			System.out.print(".");
-		} while ( !pageLoadStatus.equals("complete") );
-		System.out.println();
+	public static ExpectedCondition<WebElement> visibilityOfElementLocated(final By locator) {
+		return new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver driver) {
+				WebElement toReturn = driver.findElement(locator);
+				if (toReturn.isDisplayed()) {
+					return toReturn;
+				}
+				return null;
+			}
+		};
 	}
 
 	public static void waitTimer( int units, int mills ) {
