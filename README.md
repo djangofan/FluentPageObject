@@ -7,6 +7,9 @@ additional effort required to design the interface for your object and the sligh
 in complexity.  These types of interfaces are often utilized to create configurations for 
 your objects but can progress into an internal Domain Specific Language or DSL.
 
+NOTE: This project is no longer in development.  I migrated it to a new location at:
+https://github.com/djangofan/WebDriverTestingTemplate/blob/master/google/src/main/java/qa/webdriver/util/GoogleSearchPage.java
+
 
 ######Selenium2 WebDriver fluent page object pattern example
 
